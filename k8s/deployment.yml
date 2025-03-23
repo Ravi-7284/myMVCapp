@@ -1,0 +1,28 @@
+kind: Deployment
+apiVersion: apps/v1
+
+metadata:
+  name: mymvcapp-deployment
+  namespace: mymvcapp-ns
+  labels:
+    app: mymvcapp
+
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mymvcapp
+
+  template:
+    metadata:
+      name: mymvcpod
+      namespace: mymvcapp-ns
+      labels:
+        app: mymvcapp
+    spec:
+      containers:
+      - name: mymvcapp-container
+        image: ravigampawar/mymvcapp:v1
+        ports:
+          - containerPort: 8080
+          
