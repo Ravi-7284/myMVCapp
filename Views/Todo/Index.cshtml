@@ -1,0 +1,41 @@
+@model List<TaskItem>
+
+@{
+    ViewData["Title"] = "To-Do List";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Task</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var task in Model)
+        {
+            <tr>
+                <td>@task.Description</td>
+                <td>
+                    @if (task.IsCompleted)
+                    {
+                        <span class="text-success">Completed</span>
+                    }
+                    else
+                    {
+                        <span class="text-warning">Pending</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="ToggleComplete" asp-route-id="@task.Id" class="btn btn-sm btn-info">Toggle Complete</a>
+                    <a asp-action="Delete" asp-route-id="@task.Id" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-primary">Add New Task</a>
